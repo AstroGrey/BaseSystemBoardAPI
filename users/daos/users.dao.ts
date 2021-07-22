@@ -1,6 +1,6 @@
 
 import debug from 'debug';
-import { UserEntity } from '../../database/entities/UserEntity';
+import { UserEntity } from '../../database/entities/userEntity';
 import { UserRepository } from '../../database/userRepository';
 import UsersMiddleware from '../middleware/users.middleware';
 
