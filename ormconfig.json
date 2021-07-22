@@ -1,0 +1,15 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "toolis2cool",
+   "name": "WoodsTestDB",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "database/entities/problemEntity.{js,ts}",
+      "database/entities/userEntity.{js,ts}",
+      "database/entities/holdEntity.{js,ts}"
+   ]
+}
