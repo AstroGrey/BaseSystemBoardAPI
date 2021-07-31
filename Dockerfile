@@ -1,4 +1,4 @@
-FROM node:14-alpine as builder
+FROM node:14-alpine
 
 WORKDIR /app
 
@@ -14,9 +14,9 @@ ENV NODE_ENV=production
 
 ADD tsconfig.json ./
 
-COPY --from=builder ./app/package.json ./package.json
-COPY --from=builder ./app/node_modules ./node_modules/
-COPY --from=builder ./app/dist ./dist
+COPY --from=0 ./app/package.json ./package.json
+COPY --from=0 ./app/node_modules ./node_modules/
+COPY --from=0 ./app/dist ./dist
 
 EXPOSE $PORT
 CMD ["npm", "start"]
