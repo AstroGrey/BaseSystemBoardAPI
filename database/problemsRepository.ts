@@ -24,7 +24,7 @@ export class problemRepository extends Repository<ProblemEntity> {
             newProblem.holdList[i].type = problem.holdList[i].type;
             newProblem.holdList[i].baseHoldLocation = problem.holdList[i].baseHoldLocation; 
          }
-        let savedProblem = await getConnection("WoodsTestDB").manager.save(newProblem);
+        let savedProblem = await getConnection().manager.save(newProblem);
         for(var i = 0; i < savedProblem.holdList.length; i++){    
             // add new holds in db
             let holdRepos = new holdRepository();
@@ -34,7 +34,7 @@ export class problemRepository extends Repository<ProblemEntity> {
     }
 
     async getAllProblems(): Promise <ProblemEntity []> {
-        let probRepos = getConnection("WoodsTestDB").getRepository(ProblemEntity);
+        let probRepos = getConnection().getRepository(ProblemEntity);
         let [savedProblems, totalProblems] = await probRepos.findAndCount();
         //let totalProblems = savedProblems[1]; 
         if(savedProblems != []){
@@ -62,7 +62,7 @@ export class problemRepository extends Repository<ProblemEntity> {
     async searchById(id: any): Promise <ProblemEntity>{
         console.log("probRepos searchById");
         console.log(id);
-        let probRepos = getConnection("WoodsTestDB").getRepository(ProblemEntity);
+        let probRepos = getConnection().getRepository(ProblemEntity);
         let problem = await probRepos.findOne({
             where: {id : id}
         });
@@ -95,7 +95,7 @@ export class problemRepository extends Repository<ProblemEntity> {
     async searchByName(problemName: string){
         console.log("probRepos searchByName");
         console.log(problemName);
-        let probRepos = getConnection("WoodsTestDB").getRepository(ProblemEntity);
+        let probRepos = getConnection().getRepository(ProblemEntity);
         let problem = await probRepos.findOne({
             where: {problemName : problemName}
         });

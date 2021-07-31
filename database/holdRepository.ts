@@ -15,11 +15,11 @@ export class holdRepository extends Repository<HoldEntity> {
         newHold.baseHoldLocation = holdLocation;
         newHold.problem = problemId;
         // save hold in db
-        await getConnection("WoodsTestDB").manager.save(newHold);
+        await getConnection().manager.save(newHold);
     }
 
     async getHoldsByProblemId(problemId: string): Promise<HoldEntity[]>{
-        let problemHolds = await getConnection("WoodsTestDB").manager.find(HoldEntity); 
+        let problemHolds = await getConnection().manager.find(HoldEntity); 
         if(problemHolds != []){
             //console.log("All holds for problem:", problemId, problemHolds);
             return problemHolds;

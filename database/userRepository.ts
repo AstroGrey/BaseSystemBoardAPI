@@ -13,12 +13,12 @@ export class UserRepository extends Repository<UserEntity> {
         newUser.username = user.username;
         newUser.email = user.email;
         newUser.password = user.password;
-        getConnection("WoodsTestDB").manager.save(newUser);
+        getConnection().manager.save(newUser);
         return newUser.id;
     }
    
     async getAllUsers(): Promise <UserEntity []> {
-        let savedUsers = await getConnection("WoodsTestDB").manager.find(UserEntity);
+        let savedUsers = await getConnection().manager.find(UserEntity);
         if(savedUsers != []){
             console.log("All users from the db: ", savedUsers);
             return savedUsers;

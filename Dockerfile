@@ -18,5 +18,5 @@ COPY --from=0 ./app/package.json ./package.json
 COPY --from=0 ./app/node_modules ./node_modules/
 COPY --from=0 ./app/dist ./dist
 
-EXPOSE $PORT
-CMD ["npm", "start"]
+EXPOSE 8080
+ENTRYPOINT ["npm", "start"]
