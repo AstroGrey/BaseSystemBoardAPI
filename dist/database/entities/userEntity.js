@@ -15,39 +15,39 @@ const problemEntity_1 = require("./problemEntity");
 let UserEntity = class UserEntity extends typeorm_1.BaseEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "firstName", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "lastName", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "username", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => problemEntity_1.ProblemEntity, problem => problem.author),
+    (0, typeorm_1.OneToMany)(() => problemEntity_1.ProblemEntity, problem => problem.author),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "publishedProblems", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "loggedProblemIds", void 0);
 UserEntity = __decorate([
-    typeorm_1.Entity("UserEntity")
+    (0, typeorm_1.Entity)("UserEntity")
 ], UserEntity);
 exports.UserEntity = UserEntity;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlckVudGl0eS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2RhdGFiYXNlL2VudGl0aWVzL3VzZXJFbnRpdHkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscUNBQXNGO0FBQ3RGLG1EQUFnRDtBQUdoRCxJQUFhLFVBQVUsR0FBdkIsTUFBYSxVQUFXLFNBQVEsb0JBQVU7Q0F5QnpDLENBQUE7QUF0Qkc7SUFEQyxnQ0FBc0IsRUFBRTs7c0NBQ2I7QUFHWjtJQURDLGdCQUFNLEVBQUU7OzZDQUNVO0FBR25CO0lBREMsZ0JBQU0sRUFBRTs7NENBQ1M7QUFHbEI7SUFEQyxnQkFBTSxFQUFFOzs0Q0FDUztBQUdsQjtJQURDLGdCQUFNLEVBQUU7O3lDQUNNO0FBR2Y7SUFEQyxnQkFBTSxFQUFFOzs0Q0FDUztBQUdsQjtJQURDLG1CQUFTLENBQUMsR0FBRyxFQUFFLENBQUMsNkJBQWEsRUFBRSxPQUFPLENBQUMsRUFBRSxDQUFDLE9BQU8sQ0FBQyxNQUFNLENBQUM7O3FEQUN0QjtBQUdwQztJQURDLGdCQUFNLEVBQUU7O29EQUNtQjtBQXhCbkIsVUFBVTtJQUR0QixnQkFBTSxDQUFDLFlBQVksQ0FBQztHQUNSLFVBQVUsQ0F5QnRCO0FBekJZLGdDQUFVIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlckVudGl0eS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2RhdGFiYXNlL2VudGl0aWVzL3VzZXJFbnRpdHkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscUNBQXNGO0FBQ3RGLG1EQUFnRDtBQUdoRCxJQUFhLFVBQVUsR0FBdkIsTUFBYSxVQUFXLFNBQVEsb0JBQVU7Q0F5QnpDLENBQUE7QUF0Qkc7SUFEQyxJQUFBLGdDQUFzQixHQUFFOztzQ0FDYjtBQUdaO0lBREMsSUFBQSxnQkFBTSxHQUFFOzs2Q0FDVTtBQUduQjtJQURDLElBQUEsZ0JBQU0sR0FBRTs7NENBQ1M7QUFHbEI7SUFEQyxJQUFBLGdCQUFNLEdBQUU7OzRDQUNTO0FBR2xCO0lBREMsSUFBQSxnQkFBTSxHQUFFOzt5Q0FDTTtBQUdmO0lBREMsSUFBQSxnQkFBTSxHQUFFOzs0Q0FDUztBQUdsQjtJQURDLElBQUEsbUJBQVMsRUFBQyxHQUFHLEVBQUUsQ0FBQyw2QkFBYSxFQUFFLE9BQU8sQ0FBQyxFQUFFLENBQUMsT0FBTyxDQUFDLE1BQU0sQ0FBQzs7cURBQ3RCO0FBR3BDO0lBREMsSUFBQSxnQkFBTSxHQUFFOztvREFDbUI7QUF4Qm5CLFVBQVU7SUFEdEIsSUFBQSxnQkFBTSxFQUFDLFlBQVksQ0FBQztHQUNSLFVBQVUsQ0F5QnRCO0FBekJZLGdDQUFVIn0=

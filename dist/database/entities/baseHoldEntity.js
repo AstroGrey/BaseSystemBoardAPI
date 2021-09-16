@@ -18,23 +18,23 @@ and an ID to be used in the problemHoldList
 let BaseHoldEntity = class BaseHoldEntity {
 };
 __decorate([
-    typeorm_1.PrimaryGeneratedColumn(),
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], BaseHoldEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], BaseHoldEntity.prototype, "descriptor", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], BaseHoldEntity.prototype, "hold", void 0);
 __decorate([
-    typeorm_1.Column(),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], BaseHoldEntity.prototype, "location", void 0);
 BaseHoldEntity = __decorate([
-    typeorm_1.Entity("BaseHoldEntity")
+    (0, typeorm_1.Entity)("BaseHoldEntity")
 ], BaseHoldEntity);
 exports.BaseHoldEntity = BaseHoldEntity;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZUhvbGRFbnRpdHkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9kYXRhYmFzZS9lbnRpdGllcy9iYXNlSG9sZEVudGl0eS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxQ0FBK0Q7QUFFL0Q7OztFQUdFO0FBRUYsSUFBYSxjQUFjLEdBQTNCLE1BQWEsY0FBYztDQWExQixDQUFBO0FBVkc7SUFEQyxnQ0FBc0IsRUFBRTs7MENBQ2I7QUFHWjtJQURDLGdCQUFNLEVBQUU7O2tEQUNXO0FBR3BCO0lBREMsZ0JBQU0sRUFBRTs7NENBQ0s7QUFHZDtJQURDLGdCQUFNLEVBQUU7O2dEQUNTO0FBWlQsY0FBYztJQUQxQixnQkFBTSxDQUFDLGdCQUFnQixDQUFDO0dBQ1osY0FBYyxDQWExQjtBQWJZLHdDQUFjIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZUhvbGRFbnRpdHkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9kYXRhYmFzZS9lbnRpdGllcy9iYXNlSG9sZEVudGl0eS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxQ0FBK0Q7QUFFL0Q7OztFQUdFO0FBRUYsSUFBYSxjQUFjLEdBQTNCLE1BQWEsY0FBYztDQWExQixDQUFBO0FBVkc7SUFEQyxJQUFBLGdDQUFzQixHQUFFOzswQ0FDYjtBQUdaO0lBREMsSUFBQSxnQkFBTSxHQUFFOztrREFDVztBQUdwQjtJQURDLElBQUEsZ0JBQU0sR0FBRTs7NENBQ0s7QUFHZDtJQURDLElBQUEsZ0JBQU0sR0FBRTs7Z0RBQ1M7QUFaVCxjQUFjO0lBRDFCLElBQUEsZ0JBQU0sRUFBQyxnQkFBZ0IsQ0FBQztHQUNaLGNBQWMsQ0FhMUI7QUFiWSx3Q0FBYyJ9

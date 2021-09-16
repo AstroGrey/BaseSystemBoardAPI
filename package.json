@@ -2,7 +2,7 @@
   "name": "woods-board-api",
   "version": "1.0.1",
   "description": "An API for the Woods Board App",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "build": "tsc",
     "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/makinhs/toptal-rest-series.git"
+    "url": "https://github.com/AstroGrey/BaseSystemBoardAPI"
   },
   "keywords": [
     "REST",
@@ -23,10 +23,7 @@
   ],
   "author": "Zach Rodreick",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/makinhs/toptal-rest-series/issues"
-  },
-  "homepage": "https://github.com/makinhs/toptal-rest-series#readme",
+  "homepage": "http://woodsapi-env.eba-ztpn3x24.us-west-1.elasticbeanstalk.com",
   "dependencies": {
     "argon2": "^0.27.0",
     "cors": "^2.8.5",
