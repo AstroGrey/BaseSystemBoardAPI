@@ -76,10 +76,15 @@ createConnection({
     // use ormconfig.json here 
     type: "postgres",
     host: databaseHost,
+    //host: "localhost",
     port: databasePort,
+    //port: 5432,
     username: databaseUsername,
+    //username: "postgres",
     password: databasePassword,
+    //password: "toolis2cool",
     name: databaseName,
+    //name: "WoodsTestDB",
     entities: [
         ProblemEntity,
         UserEntity,

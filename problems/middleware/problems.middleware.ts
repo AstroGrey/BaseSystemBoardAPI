@@ -9,11 +9,14 @@ class ProblemsMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
+        console.log(req.body)
         if (req.body && 
             req.body.problemName && 
             req.body.problemGrade && 
             req.body.author &&
-            //req.body.angle &&
+            req.body.angle &&
+            req.body.isBenchmark &&
+            req.body.matching &&
             req.body.holdList){  
             next();
         } else {
