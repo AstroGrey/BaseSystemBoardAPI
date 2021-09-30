@@ -104,7 +104,7 @@ class UsersMiddleware {
         } else {
             res.status(400).send({ error: `Invalid email` }); // user email doesnt exist
         }
-    }
+    }*/
 
     async validateUserIDExists( // response to '/users/:userId' request
         req: express.Request,
@@ -119,7 +119,7 @@ class UsersMiddleware {
                 error: `User ${req.params.userId} not found`, 
             });
         }
-    }*/
+    }
 }
 
 export default new UsersMiddleware();

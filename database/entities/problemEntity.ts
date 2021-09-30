@@ -1,9 +1,9 @@
-import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne} from "typeorm";
 import { HoldEntity } from "./holdEntity";
-import { hold } from "../../common/holdClass";
+import { UserEntity } from "./userEntity";
 
-@Entity()
-export class ProblemEntity{ // extends BaseEntity{
+@Entity("ProblemEntity")
+export class ProblemEntity{
 
     @PrimaryGeneratedColumn()
     id!: number;
@@ -11,21 +11,28 @@ export class ProblemEntity{ // extends BaseEntity{
     @Column()
     problemName!: string;
 
-    @Column()
-    author!: string;
-
+    @ManyToOne(() => UserEntity, user => user.publishedProblems)
+    authorId!: number;
+    
     @Column()
     problemGrade!: number;
 
-    @Column({default: 0})
+    @Column()
     holdCount!: number;
 
-    @OneToMany(type => HoldEntity, holdEntity => holdEntity.problem)
+    @Column({default: false})
+    isBenchmark?: boolean;
+
+    @OneToMany(() => HoldEntity, hold => hold.problem)
     holdList!: HoldEntity[];
 
-    //@Column()
-    //angle!: number;
+    @Column()
+    angle!: number;
 
-    //@Column()
-    //datePublished!: string;
+    // If true, matching is allowed. If false, no matching
+    @Column({default: true})
+    matching?: boolean; 
+
+    @Column()
+    datePublished!: string;
 }

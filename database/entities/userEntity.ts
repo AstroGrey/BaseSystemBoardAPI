@@ -1,7 +1,7 @@
-import {BaseEntity, Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { ProblemEntity } from "./problemEntity";
 
-
-@Entity()
+@Entity("UserEntity")
 export class UserEntity extends BaseEntity{
 
     @PrimaryGeneratedColumn()
@@ -21,4 +21,10 @@ export class UserEntity extends BaseEntity{
 
     @Column()
     password!: string;
+
+    @OneToMany(() => ProblemEntity, problem => problem.author)
+    publishedProblems?: number[];
+
+    @Column()
+    loggedProblemIds?: number[];
 }
