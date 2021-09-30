@@ -18,7 +18,7 @@ export class problemRepository extends Repository<ProblemEntity> {
     holdRepos = new holdRepository();
     baseHoldRepos = new baseHoldRepository();
 
-    async createProblem(problem: ClientProblemEntity): Promise <ProblemEntity>{
+    async createProblem(problem: ClientProblemEntity): Promise <ClientProblemEntity>{
         console.log("Create Problem");
         
         // Save Problem Attributes
@@ -79,8 +79,12 @@ export class problemRepository extends Repository<ProblemEntity> {
     }
 
     async getProblemsByAngle(angle: number): Promise <ClientProblemEntity[]> {
+<<<<<<< Updated upstream
         let probRepos = getConnection(process.env.RDS_DB_NAME).getRepository(ProblemEntity);
         let [savedProblemsAtAngle, totalProblemsAtAngle] = await probRepos.findAndCount({
+=======
+        let [savedProblemsAtAngle, totalProblemsAtAngle] = await this.problemRepos.findAndCount({
+>>>>>>> Stashed changes
             where: {angle : angle}
         });
         if(savedProblemsAtAngle != []){
@@ -99,8 +103,12 @@ export class problemRepository extends Repository<ProblemEntity> {
         }
     }
 
+<<<<<<< Updated upstream
     async convertClimbsAroundAngle(angle: any): Promise <ClientProblemEntity[]>{
         var actualAngle: number = +angle;
+=======
+    async convertClimbsAroundAngle(actualAngle: number): Promise <ClientProblemEntity[]>{
+>>>>>>> Stashed changes
         let climbs10AboveAngle = await this.getProblemsByAngle(actualAngle-10);
         let climbs5AboveAngle = await this.getProblemsByAngle(actualAngle-5);
         let climbsAtAngle = await this.getProblemsByAngle(actualAngle);
@@ -111,6 +119,7 @@ export class problemRepository extends Repository<ProblemEntity> {
                         + climbsAtAngle.length
                         + climbs5BelowAngle.length
                         + climbs10BelowAngle.length);
+<<<<<<< Updated upstream
         let allClimbs = Array <ClientProblemEntity>(totalClimbs);
         var index = 0;
         for(var i = 0; i < climbs10AboveAngle.length; i++){
@@ -146,11 +155,34 @@ export class problemRepository extends Repository<ProblemEntity> {
             else{
                 allClimbs[index].proposedGrade = climbs10BelowAngle[i].problemGrade-2;
             }
+=======
+        let allClimbs = Array(totalClimbs);
+        var index = 0;
+        for(var i = 0; i < climbs10AboveAngle.length; i++){
+            allClimbs[index].proposedGrade += (climbs10AboveAngle[i].problemGrade+2);
+            index++;
+        }
+        for(var i = 0; i < climbs5AboveAngle.length; i++){
+            allClimbs[index].proposedGrade += (climbs5AboveAngle[i].problemGrade+1);
+            index++;
+        }
+        for(var i = 0; i < climbsAtAngle.length; i++){
+            allClimbs[index].proposedGrade += (climbsAtAngle[i].problemGrade);
+            index++;
+        }
+        for(var i = 0; i < climbs5BelowAngle.length; i++){
+            allClimbs[index].proposedGrade += (climbs5BelowAngle[i].problemGrade-1);
+            index++;
+        }
+        for(var i = 0; i < climbs10BelowAngle.length; i++){
+            allClimbs[index].proposedGrade += (climbs10BelowAngle[i].problemGrade-2);
+>>>>>>> Stashed changes
             index++;
         }
         return allClimbs;
     }
 
+<<<<<<< Updated upstream
     async getProblemsByGradeAndAngle(angle: any, grade: any): Promise <ClientProblemEntity[]>{
         var actualGrade: number = +grade;
 
@@ -165,6 +197,8 @@ export class problemRepository extends Repository<ProblemEntity> {
         return climbsByBoth;
     }
 
+=======
+>>>>>>> Stashed changes
     async getProblemHoldList(problemID: any, holdCount: number): Promise <HoldEntity[]>{
         console.log("probRepos getProblemHoldList of problem: ", problemID);
         let problemHoldList = await this.holdRepos.getHoldsByProblemId(problemID, holdCount);
@@ -260,6 +294,7 @@ export class problemRepository extends Repository<ProblemEntity> {
             isBenchmark: problem.isBenchmark,
             matching: problem.matching,
             angle: problem.angle,
+            proposedGrade: problem.problemGrade,
             holdList: await this.holdRepos.translateToClientHoldList(problem),
             datePublished: problem.datePublished,
             holdCount: problem.holdCount

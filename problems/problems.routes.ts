@@ -20,9 +20,14 @@ export class ProblemsRoutes extends CommonRoutesConfig {
             )
             //.delete(ProblemsController.deleteAllProblems);
 
+        this.app.param(`angle`, ProblemsMiddleware.extractProblemAngle);
+        this.app
+            .route(`/problems/:angle`)
+            .get(ProblemsController.listProblemsByAngle)
+
         this.app.param(`id`, ProblemsMiddleware.extractProblemId);
         this.app
-            .route(`/problems/:id`)
+            .route(`/problems/id/:id`)
             .all(ProblemsMiddleware.validateProblemExists)
             .get(ProblemsController.getProblemById)
             .delete(ProblemsController.removeProblemById)

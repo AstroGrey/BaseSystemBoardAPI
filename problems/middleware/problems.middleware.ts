@@ -31,20 +31,20 @@ class ProblemsMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        const problem = await problemService.getByName(req.body.problemName); // checks to see if user exists
+        const problem = await problemService.getByName(req.body.problemName); // checks to see if problem with name exists
         if (problem) {
-            res.status(400).send({ error: `Problem name already exists` }); // user exists, cannot create user
+            res.status(400).send({ error: `Problem name already exists` }); // problem name exists, cannot create problem
         } else {
             next();
         }
     }
 
-    async validateProblemExists( // response to '/users/:userId' request
+    async validateProblemExists( // response to '/problems/id/:problemId' request
         req: express.Request,
         res: express.Response,
         next: express.NextFunction
     ) {
-        const problem = await problemService.searchById(req.params.id); // searches for user id
+        const problem = await problemService.searchById(req.params.id); // searches for problem id
         if (problem) { 
             next();
         } else { 
@@ -52,6 +52,15 @@ class ProblemsMiddleware {
                 error: `Problem ${req.params.problemId} not found`, 
             });
         }
+    }
+
+    async extractProblemAngle(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        req.body.angle = req.params.angle;
+        next();
     }
 
     async extractProblemId(

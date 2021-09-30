@@ -10,6 +10,11 @@ export class ProblemsController {
         const problems = await problemsService.list();
         res.status(200).send(problems);
     }
+    async listProblemsByAngle(req: express.Request, res: express.Response) {
+        console.log("problemsController listProblemsByAngle func");
+        const problems = await problemsService.listByAngle(req.params.angle);
+        res.status(200).send(problems);
+    }
     async createProblem(req: express.Request, res: express.Response) {
         console.log("problemsController createProblem func");
         const problem = await problemsService.create(req.body);

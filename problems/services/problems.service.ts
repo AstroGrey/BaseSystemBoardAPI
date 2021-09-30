@@ -8,6 +8,10 @@ class ProblemsService{
         console.log("problemsService create func");
         return this.ProbsRepos.createProblem(resource);
     }
+    async listByAngle(angle: number){
+        console.log("problemsService list func");
+        return this.ProbsRepos.convertClimbsAroundAngle(angle);
+    }
     async list(){
         console.log("problemsService list func");
         return this.ProbsRepos.getAllProblems();

@@ -6,3 +6,6 @@ export interface ClientUserEntity{
     email: string;
     password: string;
 }
+
+
+// Auth0 3rd party ruser authentication
