@@ -2,7 +2,7 @@ import { UserEntity } from './entities/userEntity';
 import { EntityRepository, Repository, getConnection } from "typeorm";
 import { ProblemEntity } from './entities/problemEntity';
 import { ClientUserEntity } from '../common/interfaces/clientUserEntiy';
-
+import { ClientProblemEntity } from '../common/interfaces/clientProblemEntity';
 
 @EntityRepository()
 export class UserRepository extends Repository <UserEntity> {
@@ -48,9 +48,8 @@ export class UserRepository extends Repository <UserEntity> {
         }
     }
 
-    async addProblemToPublishedProblems(newProblem: ProblemEntity, userId: UserEntity){
-        let user = await this.searchById(userId);
-
+    async addProblemToPublishedProblems(newProblem: ClientProblemEntity, userId: UserEntity){
+        
     }
 
     async searchById(id: any): Promise <UserEntity>{

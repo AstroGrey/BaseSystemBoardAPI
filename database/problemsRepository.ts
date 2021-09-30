@@ -35,9 +35,11 @@ export class problemRepository extends Repository<ProblemEntity> {
         newProblem.datePublished = date.format(now, 'MM/DD/YYYY HH:mm:ss');
 
         // Assign User to problem relationship
-        newProblem.author = new UserEntity();
+        let author = new UserEntity();
         console.log("Problem author is", problem.authorUsername);
-        newProblem.author = await this.userRepos.searchByUsername(problem.authorUsername);
+        author = await this.userRepos.searchByUsername(problem.authorUsername);
+        await this.userRepos.addProblemToPublishedProblems(problem, author);
+        newProblem.authorId = author.id;
 
         // Save Holds in Problem
         newProblem.holdList = new Array(problem.holdList.length);
@@ -74,6 +76,93 @@ export class problemRepository extends Repository<ProblemEntity> {
             console.log("No problems found");
             return []; 
         }
+    }
+
+    async getProblemsByAngle(angle: number): Promise <ClientProblemEntity[]> {
+        let probRepos = getConnection(process.env.RDS_DB_NAME).getRepository(ProblemEntity);
+        let [savedProblemsAtAngle, totalProblemsAtAngle] = await probRepos.findAndCount({
+            where: {angle : angle}
+        });
+        if(savedProblemsAtAngle != []){
+            let savedProblemsAtAngleFinal: ClientProblemEntity[];
+            savedProblemsAtAngleFinal = Array(totalProblemsAtAngle);
+            for(var i =0; i < totalProblemsAtAngle; i++){
+                savedProblemsAtAngleFinal[i] = await this.translateToClientEntity(await this.searchById(savedProblemsAtAngle[i].id));
+            }
+            console.log("All problems from the db at angle: ", angle);
+            console.log(savedProblemsAtAngle);
+            return savedProblemsAtAngleFinal;
+        }
+        else{
+            console.log("No problems at angle: ", angle, " found");
+            return []; 
+        }
+    }
+
+    async convertClimbsAroundAngle(angle: any): Promise <ClientProblemEntity[]>{
+        var actualAngle: number = +angle;
+        let climbs10AboveAngle = await this.getProblemsByAngle(actualAngle-10);
+        let climbs5AboveAngle = await this.getProblemsByAngle(actualAngle-5);
+        let climbsAtAngle = await this.getProblemsByAngle(actualAngle);
+        let climbs5BelowAngle = await this.getProblemsByAngle(actualAngle+5);
+        let climbs10BelowAngle = await this.getProblemsByAngle(actualAngle+10);
+        var totalClimbs = (climbs10AboveAngle.length 
+                        + climbs5AboveAngle.length 
+                        + climbsAtAngle.length
+                        + climbs5BelowAngle.length
+                        + climbs10BelowAngle.length);
+        let allClimbs = Array <ClientProblemEntity>(totalClimbs);
+        var index = 0;
+        for(var i = 0; i < climbs10AboveAngle.length; i++){
+            allClimbs[index] = climbs10AboveAngle[i];
+            allClimbs[index].proposedGrade = climbs10AboveAngle[i].problemGrade+2;
+            index++;
+        }
+        for(var i = 0; i < climbs5AboveAngle.length; i++){
+            allClimbs[index] = climbs5AboveAngle[i];
+            allClimbs[index].proposedGrade = climbs5AboveAngle[i].problemGrade+1;
+            index++;
+        }
+        for(var i = 0; i < climbsAtAngle.length; i++){
+            allClimbs[index] = climbsAtAngle[i];
+            allClimbs[index].proposedGrade = climbsAtAngle[i].problemGrade;
+            index++;
+        }
+        for(var i = 0; i < climbs5BelowAngle.length; i++){
+            allClimbs[index] = climbs5BelowAngle[i];
+            if(climbs5BelowAngle[i].problemGrade-1 < 0){
+                allClimbs[index].proposedGrade = 0;
+            }
+            else{
+                allClimbs[index].proposedGrade = climbs5BelowAngle[i].problemGrade-1;
+            }
+            index++;
+        }
+        for(var i = 0; i < climbs10BelowAngle.length; i++){
+            allClimbs[index] = climbs10BelowAngle[i];
+            if(climbs10BelowAngle[i].problemGrade-2 < 0){
+                allClimbs[index].proposedGrade = 0;
+            }
+            else{
+                allClimbs[index].proposedGrade = climbs10BelowAngle[i].problemGrade-2;
+            }
+            index++;
+        }
+        return allClimbs;
+    }
+
+    async getProblemsByGradeAndAngle(angle: any, grade: any): Promise <ClientProblemEntity[]>{
+        var actualGrade: number = +grade;
+
+        let climbsByAngle = await this.convertClimbsAroundAngle(angle);
+        let climbsByBoth = new Array();
+        for(var i = 0; i < climbsByAngle.length; i++){
+            if(climbsByAngle[i].proposedGrade == actualGrade || climbsByAngle[i].problemGrade == actualGrade){
+                climbsByBoth.push(climbsByAngle[i]);
+            }
+        }
+
+        return climbsByBoth;
     }
 
     async getProblemHoldList(problemID: any, holdCount: number): Promise <HoldEntity[]>{
@@ -160,11 +249,14 @@ export class problemRepository extends Repository<ProblemEntity> {
     }
 
     async translateToClientEntity(problem: ProblemEntity): Promise <ClientProblemEntity>{    
+        let author = new UserEntity();
+        author = await this.userRepos.searchById(problem.authorId);
         const clientEntity: ClientProblemEntity = {
             id: problem.id,
             problemName: problem.problemName,
             problemGrade: problem.problemGrade,
-            authorUsername: problem.author.username,
+            proposedGrade: problem.problemGrade,
+            authorUsername: author.username,
             isBenchmark: problem.isBenchmark,
             matching: problem.matching,
             angle: problem.angle,
@@ -191,8 +283,8 @@ export class problemRepository extends Repository<ProblemEntity> {
             await this.problemRepos.update( id, { problemGrade: problemInfo.problemGrade });
         if(oldProblem.angle != problemInfo.angle)    
             await this.problemRepos.update( id, { angle: problemInfo.angle });
-        if(oldProblem.author.username != problemInfo.authorUsername) 
-            await this.problemRepos.update( id, { author: await this.userRepos.searchByUsername(problemInfo.authorUsername) });
+        //if(oldProblem.author.username != problemInfo.authorUsername) 
+        //    await this.problemRepos.update( id, { author: await this.userRepos.searchByUsername(problemInfo.authorUsername) });
 
         // Patch BaseHold Entities
         this.holdRepos.patchHoldsByProblemID(id, problemInfo);

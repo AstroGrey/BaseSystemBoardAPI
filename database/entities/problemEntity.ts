@@ -12,7 +12,7 @@ export class ProblemEntity{
     problemName!: string;
 
     @ManyToOne(() => UserEntity, user => user.publishedProblems)
-    author!: UserEntity;
+    authorId!: number;
     
     @Column()
     problemGrade!: number;

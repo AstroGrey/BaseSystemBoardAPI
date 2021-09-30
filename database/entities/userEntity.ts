@@ -23,7 +23,7 @@ export class UserEntity extends BaseEntity{
     password!: string;
 
     @OneToMany(() => ProblemEntity, problem => problem.author)
-    publishedProblems?: ProblemEntity[];
+    publishedProblems?: number[];
 
     @Column()
     loggedProblemIds?: number[];

@@ -6,9 +6,10 @@ export interface ClientProblemEntity{
     authorUsername: string;
     problemGrade: number;
     isBenchmark?: boolean;
+    proposedGrade: number;
     matching?: boolean;
     holdList: ClientHoldEntity[];
     angle: number;
-    datePublished: string;
+    datePublished?: string;
     holdCount: number;
 }
