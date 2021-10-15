@@ -24,7 +24,7 @@ const databaseHost = process.env.RDS_HOSTNAME || 'localhost';
 const databasePort = process.env.RDS_PORT ? Number(process.env.RDS_PORT) : 5432;
 const databaseName = process.env.RDS_DB_NAME || 'WoodsTestDB';
 const databaseUsername = process.env.RDS_USERNAME || 'postgres';
-const databasePassword = process.env.RDS_PASSWORD || 'toolis2cool';
+const databasePassword = process.env.RDS_PASSWORD;
 
 app.use(express.json()); // adding middleware to parse all incoming requests as JSON 
 app.use(cors()); // adding middleware to allow cross-origin requests
@@ -82,7 +82,6 @@ createConnection({
     username: databaseUsername,
     //username: "postgres",
     password: databasePassword,
-    //password: "toolis2cool",
     name: databaseName,
     //name: "WoodsTestDB",
     entities: [
